@@ -1,0 +1,136 @@
+.signout-screen {
+  min-height: 100vh;
+  background: #e9eff8;
+  padding: 16px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* header */
+.signout-header {
+  padding: 47px 0px 7px 4px;
+}
+
+.signout-back {
+  display: flex;                  
+  align-items: center;
+  gap: 8px;                       
+
+  background: none;
+  border: none;
+  padding: 0;
+
+  font-size: 17px;
+  font-weight: 400;
+  color: #000000;
+  position: relative;
+  z-index: 2;
+
+  cursor: pointer;
+}
+
+.back-arrow {
+  font-size: 22px;                
+  line-height: 1;
+  margin-top: -1px;              
+}
+
+.signout-title {
+  text-align: center;
+  font-size: 25px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* card */
+.signout-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 12px 16px;
+  margin-top: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.signout-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.signout-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.signout-name {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.signout-button {
+  background: #8da0c8;
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* overlay */
+.signout-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 10;
+}
+
+/* modal */
+.signout-modal {
+  position: fixed;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -50%);
+
+  width: 250px;  
+  background: #8da0c8;
+  color: #fff;
+  border-radius: 20px;
+  padding: 20px 24px;
+  text-align: center;
+
+  z-index: 11;
+}
+
+.signout-question {
+  margin: 0 0 16px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.signout-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.signout-yes,
+.signout-no {
+  background: #fff;
+  color: #6b7280;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+  padding: 6px 20px;
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+  width: 80px;
+  height: 40px;
+  margin: 10px;
+}

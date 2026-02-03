@@ -1,0 +1,135 @@
+/* ===============================
+   ОСНОВНОЙ ЭКРАН STATISTICS
+   Контейнер на весь экран
+   =============================== */
+.countries-screen {
+  min-height: 100vh;
+  padding: 10px;
+  box-sizing: border-box;
+  position: relative;
+
+  isolation: isolate;
+}
+
+
+.stats-bg {
+  position: fixed;          /* ФОН ЗАФИКСИРОВАН */
+  inset: 0;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  z-index: -1;
+}
+
+/* затемнение */
+.stats-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+
+/* ===============================
+   HEADER (кнопка Back + заголовок)
+   =============================== */
+.countries-header {
+  position: relative;             /* чтобы быть выше overlay */
+  margin-bottom: 4px;            /* отступ от контента */
+  padding: 53px 0px 7px 10px;       /* отступы под safe-area / макет */
+  z-index: 2;                   /* поверх затемнения */
+}
+
+/* ===============================
+   КНОПКА BACK
+   =============================== */
+.countries-back {
+  display: flex;                  /* стрелка и текст в строку */
+  align-items: center;
+  gap: 8px;                       /* расстояние между стрелкой и текстом */
+
+  background: none;
+  border: none;
+  padding: 0;
+
+  font-size: 17px;
+  font-weight: 400;
+  color: #ffffff;
+  position: relative;
+  z-index: 2;
+
+  cursor: pointer;
+}
+
+
+/* ===============================
+   СТРЕЛКА НАЗАД
+   =============================== */
+.back-arrow {
+  font-size: 22px;                /* чуть больше текста */
+  line-height: 1;
+  margin-top: -1px;               /* оптическое выравнивание */
+}
+
+.countries-title {
+  text-align: center;
+  color: #fff;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.countries-list {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+
+/* card */
+
+.card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 12px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.name {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.trips {
+  background: #e6f1ff;
+  color: #3b82f6;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-top: 1px solid #eee;
+  font-size: 14px;
+}
+
+.date {
+  color: #888;
+  font-size: 12px;
+}
+

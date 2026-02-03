@@ -1,0 +1,195 @@
+.home-screen {
+  position: fixed;
+  inset: 0;
+  background: #dfe6f3;
+
+  font-family: "Inter", sans-serif;
+
+  display: flex;
+  flex-direction: column;
+
+  padding-top: env(safe-area-inset-top);
+}
+
+/* ===== HEADER ===== */
+
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px 20px 16px;
+}
+
+.home-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.home-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.home-greeting {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-hi {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.home-sub {
+  font-size: 13px;
+  opacity: 0.7;
+  margin: 0;
+}
+
+.home-bell {
+  background: none;
+  border: none;
+  padding: 0;
+  opacity: 0.7;
+}
+
+.home-bell img {
+  width: 20px;
+  height: 20px;
+}
+
+/* ===== SEARCH ===== */
+
+.home-search {
+  margin: 0 20px;
+  height: 50px;
+
+  border-radius: 25px;
+  background: #ffffff;
+
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+
+  font-size: 12px;
+  color: #b0b7c3;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.search-icon {
+  width: 18px;
+  margin-right: 10px;
+}
+
+/* ===== CONTENT ===== */
+
+.home-content {
+  overflow-y: auto;
+}
+
+/* ===== COUNTRIES GRID ===== */
+
+.countries-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 158px);
+  gap: 16px;
+
+  padding: 20px 20px 110px; /* низ = место под bottom panel */
+  justify-content: center;
+}
+
+/* ===== CARD ===== */
+
+.country-card {
+  width: 158px;
+  height: 165px;
+
+  background: #ffffff;
+  border-radius: 30px;
+
+  border: 1px solid rgba(0, 0, 0, 0.2);
+
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding-top: 12px;
+  box-sizing: border-box;
+}
+
+/* ===== IMAGE ===== */
+
+.country-image {
+  width: 138px;
+  height: 115px;
+
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+
+.TITLE {
+  margin-top: 8px;
+
+  font-size: 16px ;
+  font-weight: 300;
+  letter-spacing: 0.25em;
+
+  color: #000000;
+  text-align: center;
+}
+
+
+/* ===== NOTIFICATIONS DROPDOWN ===== */
+
+.bell-wrapper {
+  position: relative;
+}
+
+.notifications-dropdown {
+  position: absolute;
+  top: 95px;       /* ниже колокольчика */
+  right: 40px;
+
+  width: 260px;
+  background: #ffffff;
+  border-radius: 10px;
+
+  padding: 14px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  z-index: 50;
+}
+
+
+.notif-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+
+.notif-item {
+  font-size: 13px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: #f3f5f9;
+  margin-bottom: 8px;
+}
+
+.notif-item:last-child {
+  margin-bottom: 0;
+}
+
+.notif-empty {
+  font-size: 12px;
+  text-align: center;
+  opacity: 0.5;
+  margin-top: 10px;
+}

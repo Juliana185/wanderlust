@@ -1,0 +1,169 @@
+.profile-screen {
+  position: fixed;
+  inset: 0;
+  background: #dfe6f3;
+  padding-top: calc(env(safe-area-inset-top) + 16px);
+  font-family: "Inter", sans-serif;
+}
+
+.profile-header {
+  padding: 0 20px;
+}
+
+.profile-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  background: none;
+  border: none;
+  padding: 0;
+
+  font-size: 17px;
+  font-weight: 400;
+  color: #000000; 
+
+  cursor: pointer;
+}
+
+.back-arrow {
+  font-size: 22px;
+  line-height: 1;
+  margin-top: -1px; /* микро-смещение как в iOS */
+}
+
+
+.profile-avatar-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 2px 0 12px;
+}
+
+.profile-avatar {
+  width: 153px;
+  height: 153px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-name {
+  text-align: center;
+  margin: 0;
+}
+
+.profile-sub {
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.profile-card {
+  position: fixed;
+  left: 0;
+  right: 0;
+
+  top: 340px;
+  height: 450px;
+  bottom: 0;
+
+  background: #ffffff;
+  border-radius: 28px 28px 0 0;
+
+  display: flex;
+  flex-direction: column;
+
+  padding-top: 8px;
+  padding-bottom: calc(20px + env(safe-area-inset-bottom));
+}
+
+
+.profile-item {
+  display: flex;
+  align-items: center;
+
+  padding: 14px 45px;
+  gap: 20px;
+
+  font-size: 17px;
+}
+
+.profile-arrow {
+  margin-left: auto;   
+  opacity: 0.6;
+
+  line-height: 1; 
+  margin-left: auto;
+  font-size: 30px;
+  color: #000000;
+  opacity: 0.8;
+}
+
+.profile-item-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+}
+
+.profile-item-icon.green {
+  background: #bfe3c8; /* светло-зелёный */
+}
+
+.profile-item-icon.gray {
+  background: #d1d1d1;
+}
+
+.profile-item-icon img {
+  width: 20px;
+  height: 20px;
+}
+
+.profile-divider {
+  height: 2px;
+  background: #eee;
+  margin: 5px 0;
+}
+
+.profile-social-title {
+  font-size: 11px;
+  opacity: 0.4;
+  margin-bottom: 15px;
+}
+
+.profile-socials {
+  display: flex;
+  justify-content: center;
+  gap: 18px;        /* как в макете */
+}
+
+.profile-socials img {
+  width: 22px;
+  height: 22px;
+  opacity: 0.9;
+}
+
+
+.profile-social-block {
+  margin-top: 20px;   
+  text-align: center;
+}
+
+.home-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: calc(-25px + env(safe-area-inset-bottom));
+  padding-bottom: env(safe-area-inset-bottom);
+
+  background: #ffffff;
+  border-radius: 30px 30px 0 0;
+
+  z-index: 10;
+}

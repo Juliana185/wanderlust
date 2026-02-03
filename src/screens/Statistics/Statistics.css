@@ -1,0 +1,326 @@
+/* ===============================
+   ОСНОВНОЙ ЭКРАН STATISTICS
+   Контейнер на весь экран
+   =============================== */
+.stats-screen {
+  min-height: 100vh;
+  padding: 10px;
+  box-sizing: border-box;
+  position: relative;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  isolation: isolate;
+}
+
+/* ===============================
+   ЗАТЕМНЕНИЕ ФОНА (OVERLAY)
+   Поверх фоновой картинки
+   =============================== */
+.stats-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 1;
+  pointer-events: none;                   /* ниже контента */
+}
+
+
+/* ===============================
+   HEADER (кнопка Back + заголовок)
+   =============================== */
+.stats-header {
+  position: relative;             /* чтобы быть выше overlay */
+  margin-bottom: -15px;            /* отступ от контента */
+  padding: 53px 0px 7px 10px;       /* отступы под safe-area / макет */
+  z-index: 2;                   /* поверх затемнения */
+}
+
+/* ===============================
+   КНОПКА BACK
+   =============================== */
+.stats-back {
+  display: flex;                  /* стрелка и текст в строку */
+  align-items: center;
+  gap: 8px;                       /* расстояние между стрелкой и текстом */
+
+  background: none;
+  border: none;
+  padding: 0;
+
+  font-size: 17px;
+  font-weight: 400;
+  color: #ffffff;
+  position: relative;
+  z-index: 2;
+
+  cursor: pointer;
+}
+
+
+/* ===============================
+   СТРЕЛКА НАЗАД
+   =============================== */
+.back-arrow {
+  font-size: 22px;                /* чуть больше текста */
+  line-height: 1;
+  margin-top: -1px;               /* оптическое выравнивание */
+}
+
+
+/* ===============================
+   ЗАГОЛОВОК "Statistics"
+   =============================== */
+.stats-title {
+  font-family: "Inter", sans-serif;
+  font-size: 25px;
+  font-weight: 600;              
+  line-height: normal;          
+  letter-spacing: 0;
+  text-align: center;
+
+  color: #ffffff;
+
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+/* ===============================
+   КОНТЕНТ ЭКРАНА
+   =============================== */
+.stats-content {
+  display: flex;
+  flex-direction: column;         /* карточки сверху вниз */
+  gap: 7px;                      /* расстояние между карточками */
+  position: relative;
+  z-index: 1;                     /* поверх overlay */
+}
+
+
+/* ===============================
+   ВЕРХНЯЯ КАРТОЧКА С ЦИФРАМИ
+   =============================== */
+.stats-summary {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 16px;
+
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  position: relative;
+
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stat-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 1px;
+  height: 35px;
+
+  background: rgba(0, 0, 0, 0.2);
+}
+
+
+/* ===============================
+   ОДИН ПУНКТ В SUMMARY
+   =============================== */
+.stat-item {
+  flex: 1;
+  position: relative;
+}
+
+
+/* ===============================
+   ЧИСЛО (12 / 27 / 96)
+   =============================== */
+.stat-value {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+
+/* ===============================
+   ПОДПИСЬ К ЧИСЛУ
+   =============================== */
+.stat-label {
+  font-size: 15px;
+  color: #000000;
+  font-weight: 400;
+}
+
+
+/* ===============================
+   ОБЩИЙ СТИЛЬ БЕЛЫХ КАРТОЧЕК
+   (Countries / Cities)
+   =============================== */
+.stats-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 16px;
+
+  box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+
+/* ===============================
+   ЗАГОЛОВОК ВНУТРИ КАРТОЧКИ
+   =============================== */
+.stats-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+
+/* ===============================
+   ГРАФИК СТРАН
+   =============================== */
+.countries-block {
+  display: flex;
+  gap: 38px;
+  align-items: center;
+}
+
+/* легенда */
+.countries-legend {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* элемент легенды */
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.legend-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 5px;
+}
+
+.legend-label {
+  flex: 1;
+  color: #000000;
+}
+
+.legend-value {
+  color: #000000;
+}
+
+/* кнопка */
+.show-all {
+  margin-top: 8px;
+  align-self: flex-end;
+
+  background: none;
+  border: none;
+  padding: 0;
+
+  color: #045086;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* ===============================
+   ГРАФИК ГОРОДОВ
+   =============================== */
+
+.cities-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 15px;
+
+  height: 150px;
+}
+
+.cities-labels {
+  display: flex;
+  gap: 15px;
+  margin-top: 1px;
+}
+
+.cities-labels span {
+  width: 45px;
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.bar-wrapper {
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.bar {
+  width: 45px;
+  border-radius: 12px 12px 0 0;
+  background: #86a4e7;
+}
+
+.bar-wrapper:nth-child(2) .bar {
+  background: #7f9ad6;
+}
+
+.bar-wrapper:nth-child(3) .bar {
+  background: #9bb8ff;
+}
+
+.bar-wrapper:nth-child(4) .bar {
+  background: #b2c8ff;
+}
+
+.bar-label {
+  font-size: 1px;
+  color: #333;
+}
+
+/* ось */
+.cities-axis {
+  height: 1px;
+  background: #d0d0d0;
+  margin-bottom: 6px;
+}
+
+/* ===== Highlights ===== */
+
+.highlights-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  margin-top: -5px;
+}
+
+.highlight-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #000000;
+  margin-bottom: 6px;
+}
+
+.highlight-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #9bb8ff;
+}
+

@@ -1,0 +1,163 @@
+.edit-screen {
+  min-height: 100vh;
+  background: #e9eff8;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* header */
+.edit-header {
+padding: 47px 0px 7px 4px;
+  position: relative;
+}
+
+.edit-back {
+  display: flex;                  
+  align-items: center;
+  gap: 8px;                       
+
+  background: none;
+  border: none;
+  padding: 0;
+
+  font-size: 17px;
+  font-weight: 400;
+  color: #000000;
+  position: relative;
+  z-index: 2;
+
+  cursor: pointer;
+}
+
+.back-arrow {
+  font-size: 22px;                
+  line-height: 1;
+  margin-top: -1px;              
+}
+
+.edit-title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  margin-top: -20px;
+}
+
+/* avatar */
+.edit-avatar-block {
+  text-align: center;
+  margin: 16px 0;
+}
+
+.edit-avatar {
+  width: 153px;
+  height: 153px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.edit-name {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.edit-photo-btn {
+  margin-top: 6px;
+  background: #ffffff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+
+  height: 40px;
+  width: 150px;
+
+    background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.change-photo-icon {
+  width: 18px;
+  height: 18px;
+  opacity: 0.5;
+}
+
+/* card */
+.edit-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 16px;
+}
+
+.edit-label {
+  font-size: 12px;
+  color: #777;
+  margin-top: 12px;
+  display: block;
+}
+
+/* input */
+.edit-input-wrap {
+  position: relative;
+}
+
+.edit-input-wrap input {
+  width: 100%;
+  height: 36px;
+  padding: 0 36px 0 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.clear-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: #e6ebf5;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 14px;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+/* colors */
+.color-row {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0 16px;
+}
+
+.color-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+}
+
+.color-dot.active {
+  outline: 3px solid #c7d2fe;
+}
+
+/* save */
+.save-btn {
+  width: 100%;
+  background: #8faadc;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 14px;
+  font-size: 15px;
+}
+
+
