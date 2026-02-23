@@ -1,8 +1,12 @@
 import { useState } from "react";
 import "./DeleteAccount.css";
+import { useAvatar } from "../../hooks/useAvatar";
+import { useUserName } from "../../hooks/useUserName";
 
 export default function DeleteAccount({ onBack, onConfirm }) {
   const [showConfirm, setShowConfirm] = useState(false);
+    const avatar = useAvatar();
+    const userName = useUserName();
 
   return (
     <div className="delete-screen">
@@ -19,11 +23,11 @@ export default function DeleteAccount({ onBack, onConfirm }) {
       <div className="delete-card">
         <div className="delete-user">
           <img
-            className="delete-avatar"
-            src="https://i.pinimg.com/736x/bf/21/94/bf2194c0faa4f94b44ed8e4cdc1389f4.jpg"
-            alt=""
+            className="home-avatar"
+            src={avatar ||"https://i.pinimg.com/1200x/dc/08/0f/dc080fd21b57b382a1b0de17dac1dfe6.jpg"}
+            alt="avatar"
           />
-          <span className="delete-name">Maria Danis</span>
+          <span className="delete-name">{userName}</span>
         </div>
 
         <button

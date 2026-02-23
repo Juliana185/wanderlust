@@ -1,5 +1,5 @@
-import { useState } from "react";
 import "./App.css";
+import { useState, useEffect } from "react";
 
 import StartFlow from "./screens/Auth/StartFlow";
 import Cat from "./screens/Auth/Cat";
@@ -17,55 +17,128 @@ import SignOut from "./screens/SignOut/SignOut";
 import DeleteAccount from "./screens/DeleteAccount/DeleteAccount";
 import Language from "./screens/Language/Language";
 import EditProfile from "./screens/EditProfile/EditProfile";
-
-
-import Paris from "./screens/Country/paris/paris";
-import Germany from "./screens/Country/germany/germany";
-import Italy from "./screens/Country/italy/italy";
-import Japan from "./screens/Country/japan/japan";
-import Serbia from "./screens/Country/serbia/serbia";
-import Montenegro from "./screens/Country/montenegro/montenegro";
-import USA from "./screens/Country/usa/usa";
-import Czechia from "./screens/Country/czechia/czechia";
+import AlbumScreen from "./screens/Album/AlbumScreen";
+import CityScreen from "./screens/City/CityScreen"; 
+import SearchResultScreen from "./screens/SearchResultScreen/SearchResultScreen"; 
 
 function App() {
-  const [countryId, setCountryId] = useState(null);
   const [screen, setScreen] = useState("auth");
   const [authMode, setAuthMode] = useState("signin");
+  const [fromStart, setFromStart] = useState(false);
+  const [currentAlbum, setCurrentAlbum] = useState(null);
+  const [currentCity, setCurrentCity] = useState(null);
+  const [theme, setTheme] = useState("light");
+  const [searchData, setSearchData] = useState(null);
 
-  const [theme, setTheme] = useState("light"); // 🌞🌚
+
+  /* ===== HOME VIEW STATE ===== */
+  const [homeView, setHomeView] = useState("home");
+
+  /* ===================== ALBUMS STATE ===================== */
+
+  const [albums, setAlbums] = useState([]);
+  const [albumsLoaded, setAlbumsLoaded] = useState(false);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("albums");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) setAlbums(parsed);
+      }
+    } catch {
+      localStorage.removeItem("albums");
+    } finally {
+      setAlbumsLoaded(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!albumsLoaded) return;
+    localStorage.setItem("albums", JSON.stringify(albums));
+  }, [albums, albumsLoaded]);
+
+  /* ===================== APP BACKGROUND ===================== */
+
+  useEffect(() => {
+    const bg = localStorage.getItem("appBg");
+    if (bg) {
+      document.documentElement.style.setProperty("--app-bg", bg);
+    }
+  }, []);
 
   return (
     <div className={`app ${theme}`}>
+
+      {/* ===== AUTH ===== */}
       {screen === "auth" && (
         <StartFlow
           initialScreen={authMode}
           goToCat={() => setScreen("cat")}
-          goToHome={() => setScreen("home")}
+          goToHome={() => {
+            setFromStart(true);
+            setScreen("home");
+          }}
         />
       )}
 
       {screen === "cat" && (
         <Cat
-          goBack={() => {setAuthMode("signin"); setScreen("auth");}}
+          goBack={() => {
+            setAuthMode("signin");
+            setScreen("auth");
+          }}
         />
       )}
 
+      {/* ===== HOME ===== */}
       {screen === "home" && (
         <Home
+          albums={albums}
+          setAlbums={setAlbums}
+          view={homeView}
+          setView={setHomeView}
           goToProfile={() => setScreen("profile")}
-
-          goToParis={() => setScreen("paris")}
-          goToGermany={() => setScreen("germany")}
-          goToItaly={() => setScreen("italy")}
-          goToJapan={() => setScreen("japan")}
-          goToSerbia={() => setScreen("serbia")}
-          goToMontenegro={() => setScreen("montenegro")}
-          goToUsa={() => setScreen("usa")}
-          goToCzechia={() => setScreen("czechia")}
+          showHints={fromStart}
+          onHintsEnd={() => setFromStart(false)}
+          openAlbum={(album) => {
+            setCurrentAlbum(album);
+            setScreen("album");
+          }}
+          openSearchResult={(data) => {
+            setSearchData(data);
+            setScreen("search");
+          }}
         />
       )}
 
+
+      {/* ===== ALBUM SCREEN (страна → города) ===== */}
+      {screen === "album" && currentAlbum && (
+        <AlbumScreen
+          album={currentAlbum}
+          albums={albums}
+          setAlbums={setAlbums}
+          openCity={(city) => {
+            setCurrentCity(city);
+            setScreen("city");
+          }}
+          onBack={() => setScreen("home")}
+        />
+      )}
+
+      {/* ===== CITY SCREEN (город → фото) ===== */}
+      {screen === "city" && currentCity && (
+        <CityScreen
+          album={currentAlbum}
+          city={currentCity}
+          albums={albums}
+          setAlbums={setAlbums}
+          onBack={() => setScreen("album")}
+        />
+      )}
+
+      {/* ===== PROFILE ===== */}
       {screen === "profile" && (
         <Profile
           goBack={() => setScreen("home")}
@@ -77,26 +150,21 @@ function App() {
         />
       )}
 
-      {screen === "help" && (
-        <Help onBack={() => setScreen("profile")}
-        />
-      )}
-
-      {screen === "about" && (
-        <About onBack={() => setScreen("profile")}
-        />
-      )}
+      {screen === "help" && <Help onBack={() => setScreen("profile")} />}
+      {screen === "about" && <About onBack={() => setScreen("profile")} />}
 
       {screen === "statistics" && (
         <Statistics
           onBack={() => setScreen("profile")}
-          goToCountries={() => setScreen("countries")} />
+          goToCountries={() => setScreen("countries")}
+        />
       )}
 
       {screen === "countries" && (
         <CountriesVisited onBack={() => setScreen("statistics")} />
       )}
 
+      {/* ===== SETTINGS ===== */}
       {screen === "settings" && (
         <Settings
           onBack={() => setScreen("profile")}
@@ -126,25 +194,44 @@ function App() {
       )}
 
       {screen === "signout" && (
-        <SignOut onBack={() => setScreen("settings")} onConfirm={() => setScreen("auth")} />
+        <SignOut
+          onBack={() => setScreen("settings")}
+          onConfirm={() => setScreen("auth")}
+        />
       )}
 
       {screen === "delete-account" && (
-        <DeleteAccount onBack={() => setScreen("settings")} onConfirm={() => setScreen("auth")} />
+        <DeleteAccount
+          onBack={() => setScreen("settings")}
+          onConfirm={() => setScreen("auth")}
+        />
       )}
 
-      {screen === "language" && <Language onBack={() => setScreen("settings")} />}
+      {screen === "language" && (
+        <Language onBack={() => setScreen("settings")} />
+      )}
 
-      {screen === "edit-profile" && ( <EditProfile onBack={() => setScreen("profile")} />)}
+      {screen === "edit-profile" && (
+        <EditProfile onBack={() => setScreen("profile")} />
+      )}
 
-      {screen === "paris" && <Paris onBack={() => setScreen("home")} />}
-      {screen === "germany" && <Germany onBack={() => setScreen("home")} />}
-      {screen === "italy" && <Italy onBack={() => setScreen("home")} />}
-      {screen === "japan" && <Japan onBack={() => setScreen("home")} />}
-      {screen === "serbia" && <Serbia onBack={() => setScreen("home")} />}
-      {screen === "montenegro" && <Montenegro onBack={() => setScreen("home")} />}
-      {screen === "usa" && <USA onBack={() => setScreen("home")} />}
-      {screen === "czechia" && <Czechia onBack={() => setScreen("home")} />}
+      {screen === "search" && searchData && (
+        <SearchResultScreen
+          data={searchData}
+          onBack={() => setScreen("home")}
+          onAddCountry={(name) => {
+            setAlbums(prev => [
+              {
+                id: Date.now(),
+                title: name,
+                cities: []
+              },
+              ...prev
+            ]);
+            setScreen("home");
+          }}
+        />
+      )}
     </div>
   );
 }

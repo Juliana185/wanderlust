@@ -60,11 +60,6 @@ export default function Settings({
         </div>
       </Section>
 
-      {/* APPEARANCE */}
-      <Section title="Appearance">
-        <SettingsItem label="Theme" />
-      </Section>
-
       {/* DATA SAFETY */}
       <div className="settings-card">
         <div className="settings-safety">

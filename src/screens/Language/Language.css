@@ -1,6 +1,6 @@
 .language-screen {
   min-height: 100vh;
-  background: #e9eff8;
+  background: var(--app-bg);
   padding: 16px;
 }
 
@@ -44,7 +44,7 @@ padding: 47px 0px 7px 4px;
 /* section */
 .language-section-title {
   font-size: 12px;
-  color: #888;
+  color: #000000;
   margin: 16px 0 8px;
 }
 

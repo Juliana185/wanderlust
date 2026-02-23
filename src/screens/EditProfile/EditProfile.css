@@ -1,6 +1,6 @@
 .edit-screen {
   min-height: 100vh;
-  background: #e9eff8;
+  background: var(--app-bg);
   padding: 16px;
   box-sizing: border-box;
 }
@@ -48,7 +48,7 @@ padding: 47px 0px 7px 4px;
   margin: 16px 0;
 }
 
-.edit-avatar {
+.edit-avatar1 {
   width: 153px;
   height: 153px;
   border-radius: 50%;
@@ -85,6 +85,23 @@ padding: 47px 0px 7px 4px;
   opacity: 0.5;
 }
 
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.change-photo-btn {
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: 1px solid #d0d6e4;
+  background: #ffffff;
+  opacity: 50%;
+  font-size: 14px;
+  color: #000000;
+}
+
 /* card */
 .edit-card {
   background: #fff;
@@ -95,8 +112,8 @@ padding: 47px 0px 7px 4px;
 .edit-label {
   font-size: 12px;
   color: #777;
-  margin-top: 12px;
   display: block;
+  padding: 10px;
 }
 
 /* input */

@@ -1,0 +1,21 @@
+<svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- France -->
+  <path id="FR" d="M360 170 L380 160 L400 170 L390 190 L370 190 Z" />
+
+  <!-- Italy -->
+  <path id="IT" d="M400 180 L410 200 L420 190 L415 170 Z" />
+
+  <!-- Germany -->
+  <path id="DE" d="M380 150 L400 140 L420 150 L410 170 L390 170 Z" />
+
+  <!-- Spain -->
+  <path id="ES" d="M340 190 L360 180 L380 190 L370 210 L350 210 Z" />
+
+  <!-- USA -->
+  <path id="US" d="M120 150 L180 140 L220 160 L200 190 L140 180 Z" />
+
+  <!-- Japan -->
+  <path id="JP" d="M650 170 L660 180 L650 190 L640 180 Z" />
+
+</svg>

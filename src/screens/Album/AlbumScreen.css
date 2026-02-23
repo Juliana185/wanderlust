@@ -1,0 +1,143 @@
+.all-back-btn {
+  display: flex;                  
+  align-items: center;
+  gap: 8px;                       
+
+  background: none;
+  border: none;
+  padding: 0;
+
+  font-size: 17px;
+  font-weight: 400;
+  color: #000000;
+  position: relative;
+  z-index: 2;
+
+  cursor: pointer;
+}
+
+.all-back-arrow {
+  font-size: 22px;                
+  line-height: 1;
+  margin-top: -1px;              
+}
+
+.album-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 54px 12px 22px 20px;
+}
+.album-screen {
+  min-height: 100vh;
+  background: var(--app-bg);
+  font-family: "Inter", sans-serif;
+}
+
+/* ===== HEADER ===== */
+.album-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* подложка под название */
+.album-title-badge {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 18px;
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+/* плюс */
+.add-subalbum {
+  top: auto;
+  width: 70px; 
+  height: 30px; 
+  font-size: medium;
+  border: none;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 14px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  color: #000000;
+}
+
+/* ===== GRID ===== */
+.subalbums-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  padding: 20px 14px 40px;
+}
+
+/* ===== CARD ===== */
+.subalbum-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 12px;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.15);
+}
+
+/* превью */
+.subalbum-preview {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #f2f3f7;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subalbum-title {
+  outline: none;
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+  width: 100%;
+  border: none;
+  background: transparent;
+  border-radius: 16px;
+  padding-top: 10px;
+}
+
+/* delete */
+.subalbum-delete {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: #f4f3f3;
+  color: #696767;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.subalbum-preview {
+  width: 100%;
+  height: 120px;           /* фиксированная высота */
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f2f2f2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subalbum-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       /* важно */
+}
+
+
+

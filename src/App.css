@@ -1,3 +1,11 @@
 .app {
   min-height: 100vh;
 }
+
+:root {
+  --app-bg: #dfe6f3;
+}
+
+html, body, .app {
+  background: var(--app-bg);
+}

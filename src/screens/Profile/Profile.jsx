@@ -10,11 +10,14 @@ import statsIcon from "./assets/stats.svg";
 import helpIcon from "./assets/help.svg";
 import infoIcon from "./assets/info.svg";
 
-
+import { useAvatar } from "../../hooks/useAvatar";
+import { useUserName } from "../../hooks/useUserName";
 
 export default function Profile({ goBack, goToHelp, goToAbout, goToStatistics, goToSettings, goToEdit}) {
+  const avatar = useAvatar();
+  const userName = useUserName();
   return (
-    <div className="profile-screen">
+    <div className="screennn">
       {/* HEADER */}
       <div className="profile-header">
         <button className="profile-back" onClick={goBack}>
@@ -27,14 +30,16 @@ export default function Profile({ goBack, goToHelp, goToAbout, goToStatistics, g
       {/* AVATAR */}
       <div className="profile-avatar-wrapper">
         <img
-          className="profile-avatar"
-          src="https://i.pinimg.com/736x/bf/21/94/bf2194c0faa4f94b44ed8e4cdc1389f4.jpg"
+          className="avatar"
+          src={
+            avatar ||
+            "https://i.pinimg.com/1200x/dc/08/0f/dc080fd21b57b382a1b0de17dac1dfe6.jpg"}
           alt="avatar"
         />
       </div>
 
       {/* INFO */}
-      <h2 className="profile-name">Maria Danis</h2>
+      <h2 className="profile-name">{userName}</h2>
       <p className="profile-sub">
         account registration date: March 12 2025
       </p>

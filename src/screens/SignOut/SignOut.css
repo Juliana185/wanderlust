@@ -1,6 +1,6 @@
 .signout-screen {
   min-height: 100vh;
-  background: #e9eff8;
+  background: var(--app-bg);
   padding: 16px;
   box-sizing: border-box;
   position: relative;

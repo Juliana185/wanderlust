@@ -1,326 +1,253 @@
 /* ===============================
-   ОСНОВНОЙ ЭКРАН STATISTICS
-   Контейнер на весь экран
-   =============================== */
-.stats-screen {
-  min-height: 100vh;
-  padding: 10px;
-  box-sizing: border-box;
-  position: relative;
+   HEADER (оставляем как есть)
+=============================== */
 
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  isolation: isolate;
-}
-
-/* ===============================
-   ЗАТЕМНЕНИЕ ФОНА (OVERLAY)
-   Поверх фоновой картинки
-   =============================== */
-.stats-screen::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.25);
-  z-index: 1;
-  pointer-events: none;                   /* ниже контента */
-}
-
-
-/* ===============================
-   HEADER (кнопка Back + заголовок)
-   =============================== */
 .stats-header {
-  position: relative;             /* чтобы быть выше overlay */
-  margin-bottom: -15px;            /* отступ от контента */
-  padding: 53px 0px 7px 10px;       /* отступы под safe-area / макет */
-  z-index: 2;                   /* поверх затемнения */
+  position: relative;
+  margin-bottom: -15px;
+  padding: 65px 0px 7px 20px;
+  z-index: 2;
 }
 
-/* ===============================
-   КНОПКА BACK
-   =============================== */
 .stats-back {
-  display: flex;                  /* стрелка и текст в строку */
+  display: flex;
   align-items: center;
-  gap: 8px;                       /* расстояние между стрелкой и текстом */
-
+  gap: 8px;
   background: none;
   border: none;
   padding: 0;
-
   font-size: 17px;
   font-weight: 400;
   color: #ffffff;
   position: relative;
   z-index: 2;
-
   cursor: pointer;
 }
 
-
-/* ===============================
-   СТРЕЛКА НАЗАД
-   =============================== */
 .back-arrow {
-  font-size: 22px;                /* чуть больше текста */
+  font-size: 22px;
   line-height: 1;
-  margin-top: -1px;               /* оптическое выравнивание */
+  margin-top: -1px;
 }
 
-
-/* ===============================
-   ЗАГОЛОВОК "Statistics"
-   =============================== */
 .stats-title {
   font-family: "Inter", sans-serif;
   font-size: 25px;
-  font-weight: 600;              
-  line-height: normal;          
-  letter-spacing: 0;
+  font-weight: 600;
   text-align: center;
-
   color: #ffffff;
-
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-top: 10px;
 }
-
 
 /* ===============================
-   КОНТЕНТ ЭКРАНА
-   =============================== */
-.stats-content {
-  display: flex;
-  flex-direction: column;         /* карточки сверху вниз */
-  gap: 7px;                      /* расстояние между карточками */
+   SCREEN BACKGROUND
+=============================== */
+
+.stats-screen {
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
   position: relative;
-  z-index: 1;                     /* поверх overlay */
 }
 
-
-/* ===============================
-   ВЕРХНЯЯ КАРТОЧКА С ЦИФРАМИ
-   =============================== */
-.stats-summary {
-  background: #ffffff;
-  border-radius: 20px;
-  padding: 16px;
-
-  display: flex;
-  justify-content: space-between;
-  text-align: center;
-  position: relative;
-
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.stat-item:not(:last-child)::after {
+.stats-screen::before {
   content: "";
   position: absolute;
-
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-
-  width: 1px;
-  height: 35px;
-
-  background: rgba(0, 0, 0, 0.2);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  z-index: 0;
 }
 
-
-/* ===============================
-   ОДИН ПУНКТ В SUMMARY
-   =============================== */
-.stat-item {
-  flex: 1;
+.stats-content {
   position: relative;
+  z-index: 1;
+  padding: 20px 20px 50px 20px;
 }
 
-
 /* ===============================
-   ЧИСЛО (12 / 27 / 96)
-   =============================== */
-.stat-value {
-  font-size: 20px;
-  font-weight: 600;
-}
+   ADD COUNTRY
+=============================== */
 
-
-/* ===============================
-   ПОДПИСЬ К ЧИСЛУ
-   =============================== */
-.stat-label {
-  font-size: 15px;
-  color: #000000;
-  font-weight: 400;
-}
-
-
-/* ===============================
-   ОБЩИЙ СТИЛЬ БЕЛЫХ КАРТОЧЕК
-   (Countries / Cities)
-   =============================== */
-.stats-card {
-  background: #ffffff;
-  border-radius: 20px;
-  padding: 16px;
-
-  box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1);
-}
-
-
-/* ===============================
-   ЗАГОЛОВОК ВНУТРИ КАРТОЧКИ
-   =============================== */
-.stats-card-title {
-  font-size: 16px;
-  font-weight: 600;
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
-
-/* ===============================
-   ГРАФИК СТРАН
-   =============================== */
-.countries-block {
+.add-country {
   display: flex;
-  gap: 38px;
-  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  margin-top: -30px;
 }
 
-/* легенда */
-.countries-legend {
+.add-country input {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-/* элемент легенды */
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 14px;
-}
-
-.legend-dot {
-  width: 15px;
-  height: 15px;
-  border-radius: 5px;
-}
-
-.legend-label {
-  flex: 1;
-  color: #000000;
-}
-
-.legend-value {
-  color: #000000;
-}
-
-/* кнопка */
-.show-all {
-  margin-top: 8px;
-  align-self: flex-end;
-
-  background: none;
+  padding: 10px 14px;
+  border-radius: 12px;
   border: none;
-  padding: 0;
-
-  color: #045086;
   font-size: 14px;
-  font-weight: 500;
+}
+
+.add-country button {
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  color: black;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.add-country button:hover {
+  transform: scale(1.05);
+}
+
+/* ===============================
+   MAP CARD
+=============================== */
+
+.map-card {
+  margin: 20px 0 30px 0;
+  padding: 20px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.world-map {
+  width: 100%;
+  height: auto;
+  fill: rgba(255,255,255,0.2);
   cursor: pointer;
 }
 
+.world-map path {
+  transition: fill 0.3s ease;
+}
+
+.world-map path:hover {
+  fill: #7FE2A0 !important;
+}
+
 /* ===============================
-   ГРАФИК ГОРОДОВ
-   =============================== */
+   SUMMARY
+=============================== */
 
-.cities-chart {
-  display: flex;
-  align-items: flex-end;
-  gap: 15px;
-
-  height: 150px;
+.stats-summary {
+  margin-bottom: 25px;
 }
 
-.cities-labels {
-  display: flex;
-  gap: 15px;
-  margin-top: 1px;
-}
-
-.cities-labels span {
-  width: 45px;
+.stat-item {
   text-align: center;
-  font-size: 14px;
-  color: #666;
+  color: white;
 }
 
-.bar-wrapper {
-  height: 100%;
-  display: flex;
-  align-items: flex-end;
+.stat-value {
+  font-size: 34px;
+  font-weight: 700;
 }
 
-.bar {
-  width: 45px;
-  border-radius: 12px 12px 0 0;
-  background: #86a4e7;
+.stat-label {
+  font-size: 13px;
+  opacity: 0.7;
 }
 
-.bar-wrapper:nth-child(2) .bar {
-  background: #7f9ad6;
+/* ===============================
+   LEVEL CARD
+=============================== */
+
+.level-card {
+  margin-bottom: 30px;
+  padding: 20px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  color: white;
+  transition: transform 0.3s ease;
 }
 
-.bar-wrapper:nth-child(3) .bar {
-  background: #9bb8ff;
+.level-card.level-up {
+  animation: pulse 0.5s ease 3;
 }
 
-.bar-wrapper:nth-child(4) .bar {
-  background: #b2c8ff;
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
-.bar-label {
-  font-size: 1px;
-  color: #333;
-}
-
-/* ось */
-.cities-axis {
-  height: 1px;
-  background: #d0d0d0;
-  margin-bottom: 6px;
-}
-
-/* ===== Highlights ===== */
-
-.highlights-title {
+.level-title {
   font-size: 18px;
   font-weight: 600;
-  margin-bottom: 10px;
-  margin-top: -5px;
+  margin-bottom: 12px;
 }
 
-.highlight-item {
+.level-progress {
+  height: 8px;
+  background: rgba(255,255,255,0.25);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.level-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg,#7CC7FF,#7FE2A0);
+  transition: width 0.4s ease;
+}
+
+.world-percent {
+  margin-top: 10px;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.level-next {
+  margin-top: 6px;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+/* ===============================
+   COUNTRY LIST
+=============================== */
+
+.stats-card {
+  padding: 20px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(14px);
+  color: white;
+}
+
+.stats-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.countries-list-simple {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.country-chip {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
-  color: #000000;
-  margin-bottom: 6px;
+  padding: 6px 14px;
+  border-radius: 30px;
+  background: linear-gradient(135deg,#7CC7FF,#7FE2A0);
+  font-size: 13px;
 }
 
-.highlight-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #9bb8ff;
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  color: black;
 }
 
+.empty {
+  opacity: 0.6;
+  font-size: 13px;
+}

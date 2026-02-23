@@ -1,6 +1,6 @@
 .about-screen {
   min-height: 100vh;
-  background: #dfe6f3;
+  background: var(--app-bg);
 
   padding-top: 12px;
   padding-left: 20px;

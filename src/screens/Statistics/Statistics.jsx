@@ -1,176 +1,278 @@
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./Statistics.css";
 import bgImage from "./assets/bg.jpg";
+import WorldMap from "../../assets/world.svg?react";
 
-export default function Statistics({ onBack, goToCountries }) {
+const TOTAL_COUNTRIES = 195;
+
+/* COLORS */
+
+const COLORS = [
+  "#7CC7FF","#7FE2A0","#FFD45C",
+  "#FFAD9F","#C8A2FF","#FF7F9F","#6FE7DD"
+];
+
+/* LEVEL */
+
+function getTravelerLevel(count) {
+  if (count >= 50) return { title: "👑 Legend", next: null };
+  if (count >= 26) return { title: "🚀 Global", next: 50 };
+  if (count >= 11) return { title: "🌍 Traveler", next: 26 };
+  if (count >= 4) return { title: "🧭 Explorer", next: 11 };
+  return { title: "🌱 Beginner", next: 4 };
+}
+
+/* COMPONENT */
+
+export default function Statistics({ onBack }) {
+
+  const [visitedCountries, setVisitedCountries] = useState(() => {
+    const saved = localStorage.getItem("visitedCountries");
+    return saved ? JSON.parse(saved) : {};
+  });
+
+  const [input, setInput] = useState("");
+  const [levelUp, setLevelUp] = useState(false);
+  const previousLevel = useRef(null);
+
+  /* =========================
+     SAVE TO LOCAL STORAGE
+  ========================== */
+
+  useEffect(() => {
+    localStorage.setItem(
+      "visitedCountries",
+      JSON.stringify(visitedCountries)
+    );
+  }, [visitedCountries]);
+
+  /* =========================
+     PAINT MAP
+  ========================== */
+
+useEffect(() => {
+  const allPaths = document.querySelectorAll(".world-map path");
+
+  // очищаем всё
+  allPaths.forEach(path => {
+    path.style.fill = "";
+  });
+
+  // красим все совпадающие id
+  Object.entries(visitedCountries).forEach(([name, data]) => {
+    const matching = document.querySelectorAll(
+      `.world-map path[id="${CSS.escape(name)}"]`
+    );
+
+    matching.forEach(el => {
+      el.style.fill = data.color;
+    });
+  });
+}, [visitedCountries]);
+
+
+
+const ALIASES = {
+  "usa": "United States",
+  "united states of america": "United States"
+};
+  /* =========================
+     ADD COUNTRY
+  ========================== */
+
+  const addCountry = () => {
+  let name = input.trim();
+
+  if (!name) return;
+
+  const lower = name.toLowerCase();
+
+  // проверяем алиасы
+  if (ALIASES[lower]) {
+    name = ALIASES[lower];
+  }
+
+  const svgElements = document.querySelectorAll(".world-map path");
+
+  let found = false;
+
+  svgElements.forEach(el => {
+    if (el.id.toLowerCase() === name.toLowerCase()) {
+      found = true;
+    }
+  });
+
+  if (!found) {
+    alert("Country not found");
+    return;
+  }
+
+  const realName = name;
+
+  setVisitedCountries(prev => {
+    if (prev[realName]) return prev;
+
+    const used = Object.values(prev).map(c => c.color);
+    const available = COLORS.filter(c => !used.includes(c));
+    const color = available.length
+      ? available[Math.floor(Math.random() * available.length)]
+      : COLORS[Math.floor(Math.random() * COLORS.length)];
+
+    return {
+      ...prev,
+      [realName]: {
+        name: realName,
+        color
+      }
+    };
+  });
+
+  setInput("");
+};
+
+  /* =========================
+     REMOVE COUNTRY
+  ========================== */
+
+const removeCountry = (name) => {
+  setVisitedCountries(prev => {
+    const copy = { ...prev };
+    delete copy[name];
+    return copy;
+  });
+
+  const matching = document.querySelectorAll(
+    `.world-map path[id="${CSS.escape(name)}"]`
+  );
+
+  matching.forEach(el => {
+    el.style.fill = "";
+  });
+};
+
+  /* =========================
+     DERIVED VALUES
+  ========================== */
+
+  const totalCountries = Object.keys(visitedCountries).length;
+  const traveler = getTravelerLevel(totalCountries);
+
+  const progress = traveler.next
+    ? (totalCountries / traveler.next) * 100
+    : 100;
+
+  const percentWorld = Math.round(
+    (totalCountries / TOTAL_COUNTRIES) * 100
+  );
+
+  /* =========================
+     LEVEL ANIMATION
+  ========================== */
+
+  useEffect(() => {
+    const current = traveler.title;
+    if (previousLevel.current && previousLevel.current !== current) {
+      setLevelUp(true);
+      setTimeout(() => setLevelUp(false), 1500);
+    }
+    previousLevel.current = current;
+  }, [traveler]);
+
+  /* =========================
+     RENDER
+  ========================== */
+
   return (
     <div className="stats-screen" style={{ backgroundImage: `url(${bgImage})` }}>
-      {/* HEADER */}
       <div className="stats-header">
         <button className="stats-back" onClick={onBack}>
-            <span className="back-arrow">‹</span>
-            <span>Back</span>
+          <span className="back-arrow">‹</span>
+          <span>Back</span>
         </button>
-        <h1 className="stats-title">Statistics</h1>
       </div>
 
-      {/* CONTENT */}
+      <h1 className="stats-title">Statistics</h1>
+
       <div className="stats-content">
 
-        {/* SUMMARY */}
+        <div className="add-country">
+          <input
+            placeholder="Enter full country name"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
+          <button onClick={addCountry}>Add</button>
+        </div>
+
+        <div className="map-card">
+          <WorldMap className="world-map" />
+        </div>
+
         <div className="stats-summary">
-          <StatItem value="8" label="countries" />
-          <StatItem value="21" label="cities" />
-          <StatItem value="422" label="days traveled" />
+          <StatItem value={totalCountries} label="countries" />
         </div>
 
-        {/* COUNTRIES */}
-        <div className="stats-card">
-        <h2 className="stats-card-title">Countries visited</h2>
+        <div className={`level-card ${levelUp ? "level-up" : ""}`}>
+          <div className="level-title">{traveler.title}</div>
 
-        <div className="countries-block">
-            <DonutChart />
+          <div className="level-progress">
+            <div
+              className="level-progress-bar"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
 
-            <div className="countries-legend">
-            <LegendItem color="#7CC7FF" label="France" value="5 trips" />
-            <LegendItem color="#7FE2A0" label="Italy" value="4 trips" />
-            <LegendItem color="#FFD45C" label="Japan" value="4 trips" />
-            <LegendItem color="#FFAD9F" label="Germany" value="3 trips" />
+          <div className="world-percent">
+            🌍 {percentWorld}% of the world visited
+          </div>
 
-            <button className="show-all" onClick={goToCountries}>
-                Show all ›
-            </button>
+          {traveler.next && (
+            <div className="level-next">
+              {traveler.next - totalCountries} countries to next level
             </div>
+          )}
         </div>
-        </div>
-
-
-        {/* CITIES */}
-        <div className="stats-card">
-        <h2 className="stats-card-title">Cities visited</h2>
 
         <div className="stats-card">
+          <h2 className="stats-card-title">Visited Countries</h2>
 
-        {/* столбцы */}
-        <div className="cities-chart">
-            <Bar value={90} />
-            <Bar value={70} />
-            <Bar value={50} />
-            <Bar value={35} />
+          <div className="countries-list-simple">
+            {Object.entries(visitedCountries).map(([name,data]) => (
+              <div
+                key={name}
+                className="country-chip"
+                style={{ background: data.color }}
+              >
+                {data.name}
+                <button
+                  className="delete-btn"
+                  onClick={() => removeCountry(name)}
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+
+            {!totalCountries && (
+              <div className="empty">
+                No countries added yet
+              </div>
+            )}
+          </div>
         </div>
-
-        {/* линия */}
-        <div className="cities-axis" />
-
-        {/* подписи */}
-        <div className="cities-labels">
-            <span>Paris</span>
-            <span>Rome</span>
-            <span>Berlin</span>
-            <span>Kyoto</span>
-        </div>
-        </div>
-
-
-        <div className="highlights">
-            <div className="highlights-title">Highlights</div>
-
-            <Highlight text="Most visited country: France" />
-            <Highlight text="Most visited city: Paris" />
-            <Highlight text="Longest trip: 92 days" />
-        </div>
-        </div>
-
 
       </div>
     </div>
   );
 }
 
+/* SMALL COMPONENT */
 
 function StatItem({ value, label }) {
   return (
     <div className="stat-item">
       <div className="stat-value">{value}</div>
       <div className="stat-label">{label}</div>
-    </div>
-  );
-}
-
-
-
-
-{/* COUNTRIES */}
-function DonutChart() {
-  const radius = 45;
-  const stroke = 30;
-  const circumference = 2 * Math.PI * radius;
-
-  const data = [
-    { value: 3, color: "#7CC7FF" },
-    { value: 2, color: "#7FE2A0" },
-    { value: 2, color: "#FFD45C" },
-    { value: 1, color: "#FFAD9F" },
-  ];
-
-  const total = data.reduce((sum, d) => sum + d.value, 0);
-
-  let offset = 0;
-
-  return (
-    <svg width="120" height="120" viewBox="0 0 120 120">
-      <g transform="rotate(-90 60 60)">
-        {data.map((d, i) => {
-          const dash = (d.value / total) * circumference;
-
-          const circle = (
-            <circle
-              key={i}
-              cx="60"
-              cy="60"
-              r={radius}
-              fill="transparent"
-              stroke={d.color}
-              strokeWidth={stroke}
-              strokeDasharray={`${dash} ${circumference - dash}`}
-              strokeDashoffset={-offset}
-            />
-          );
-
-          offset += dash;
-          return circle;
-        })}
-      </g>
-    </svg>
-  );
-}
-
-function LegendItem({ color, label, value }) {
-  return (
-    <div className="legend-item">
-      <span className="legend-dot" style={{ background: color }} />
-      <span className="legend-label">{label}</span>
-      <span className="legend-value">{value}</span>
-    </div>
-  );
-}
-
-
-{/* CITIES */}
-function Bar({ value }) {
-  return (
-    <div className="bar-wrapper">
-      <div className="bar" style={{ height: `${value}%` }} />
-    </div>
-  );
-}
-
-
-function Highlight({ text }) {
-  return (
-    <div className="highlight-item">
-      <span className="highlight-dot" />
-      <span>{text}</span>
     </div>
   );
 }
