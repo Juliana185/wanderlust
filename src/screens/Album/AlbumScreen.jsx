@@ -5,7 +5,7 @@ import "./AlbumScreen.css";
 
 const DB_NAME = "PhotoGalleryDB";
 const STORE_NAME = "photos";
-const DB_VERSION = 2;
+const DB_VERSION = 4;
 
 function openDB() {
   return new Promise((resolve, reject) => {

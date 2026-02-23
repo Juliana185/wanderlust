@@ -1,17 +1,26 @@
 const DB_NAME = "PhotoGalleryDB";
-const DB_VERSION = 1;
+const DB_VERSION = 4;
 const STORE = "trips";
 
-export function openDB() {
+
+function openDB() {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(DB_NAME, DB_VERSION);
 
-    request.onupgradeneeded = (e) => {
-      const db = e.target.result;
+    request.onupgradeneeded = (event) => {
+      const db = event.target.result;
 
-      if (!db.objectStoreNames.contains(STORE)) {
-        db.createObjectStore(STORE, { keyPath: "id" });
+      if (db.objectStoreNames.contains(STORE_NAME)) {
+        db.deleteObjectStore(STORE_NAME);
       }
+
+      const store = db.createObjectStore(STORE_NAME, {
+        keyPath: "id"
+      });
+
+      store.createIndex("cityId", "cityId", {
+        unique: false
+      });
     };
 
     request.onsuccess = () => resolve(request.result);
